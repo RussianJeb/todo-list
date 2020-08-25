@@ -1,0 +1,214 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Todo List",
+    "description": "Todo list",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "task",
+      "description": "Operations with tasks"
+    },
+    {
+      "name": "performer",
+      "description": "Operations with performers"
+    }
+  ],
+  "paths": {
+    "/tasks": {
+      "post": {
+        "tags": [
+          "task"
+        ],
+        "summary": "Add new task in list",
+        "operationId": "addTask",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewTask"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The task has been added"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "task"
+        ],
+        "summary": "Get todo task list",
+        "operationId": "listTask",
+        "responses": {
+          "200": {
+            "description": "Return todo list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Task"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tasks/{taskId}": {
+      "delete": {
+        "tags": [
+          "task"
+        ],
+        "summary": "Delete task",
+        "operationId": "deleteTask",
+        "parameters": [
+          {
+            "name": "taskId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The task has been delete"
+          }
+        }
+      }
+    },
+    "/tasks/priority/{taskId}": {
+      "put": {
+        "tags": [
+          "task"
+        ],
+        "summary": "Update task priority",
+        "operationId": "updatePriorityTask",
+        "parameters": [
+          {
+            "name": "taskId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "operation": {
+                    "type": "string",
+                    "enum": [
+                      "INCREMENT",
+                      "DECREMENT"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The task priority has been updated"
+          }
+        }
+      }
+    },
+    "/performers": {
+      "get": {
+        "tags": [
+          "performer"
+        ],
+        "summary": "Get list of performers",
+        "operationId": "performersList",
+        "responses": {
+          "200": {
+            "description": "Return performers list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Performer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Task": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "number",
+            "format": "int32"
+          },
+          "performer": {
+            "type": "string"
+          }
+        }
+      },
+      "NewTask": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "number",
+            "format": "int32"
+          },
+          "performer": {
+            "type": "number",
+            "format": "int64"
+          }
+        }
+      },
+      "Performer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

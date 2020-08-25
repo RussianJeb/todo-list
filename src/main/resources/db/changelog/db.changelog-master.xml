@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <changeSet id="create performer table" author="jeb">
+        <createTable tableName="performers">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="create task table" author="jeb">
+        <createTable tableName="task">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="text" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="priority" type="integer" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="performer_id" type="bigint">
+                <constraints references="performers(id)"
+                             deleteCascade="true"
+                             foreignKeyName="fk_performer_to_task"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
