@@ -26,7 +26,7 @@ public class JOOQTaskRepository implements TaskRepository {
 
     @Override
     public List<Task> findAll() {
-        return context.select(TASK.ID, TASK.NAME, TASK.DESCRIPTION, TASK.PRIORITY, PERFORMERS.NAME)
+        return context.select(TASK.ID, TASK.DESCRIPTION, TASK.PRIORITY, PERFORMERS.NAME)
                 .from(TASK)
                 .join(PERFORMERS)
                 .on(TASK.PERFORMER_ID.eq(PERFORMERS.ID))
@@ -37,7 +37,6 @@ public class JOOQTaskRepository implements TaskRepository {
     @Override
     public void save(NewTask newTask) {
         context.insertInto(TASK)
-                .set(TASK.NAME, newTask.getName())
                 .set(TASK.DESCRIPTION, newTask.getDescription())
                 .set(TASK.PRIORITY, newTask.getPriority())
                 .set(TASK.PERFORMER_ID, newTask.getPerformer())

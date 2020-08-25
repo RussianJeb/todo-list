@@ -163,9 +163,6 @@
             "type": "number",
             "format": "int64"
           },
-          "name": {
-            "type": "string"
-          },
           "description": {
             "type": "string"
           },
@@ -181,9 +178,6 @@
       "NewTask": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
-          },
           "description": {
             "type": "string"
           },

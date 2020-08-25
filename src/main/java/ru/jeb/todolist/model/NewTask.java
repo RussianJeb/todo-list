@@ -7,7 +7,6 @@ import lombok.Value;
  */
 @Value
 public class NewTask {
-    private String name;
     private String description;
     private int priority;
     private long performer;

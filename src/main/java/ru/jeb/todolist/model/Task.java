@@ -8,7 +8,6 @@ import lombok.Value;
 @Value
 public class Task {
     private long id;
-    private String name;
     private String description;
     private int priority;
     private String performer;
